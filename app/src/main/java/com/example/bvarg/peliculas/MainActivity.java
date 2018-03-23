@@ -1,13 +1,10 @@
 package com.example.bvarg.peliculas;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     GridView grid;
     GridAdapter adapter;
+    TextView grid2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +41,21 @@ public class MainActivity extends AppCompatActivity {
                     int i = 0;
                     for (Element link : links) {
                         titulo.add(link.attr("alt"));
-                        portada.add(link.attr("src"));
+                        for(int y = 0; y<300; y++){
+                            if(link.toString().substring(y,y+1).equals("e")){
+                                if(link.toString().substring(y+1,y+2).equals("=")){
+                                    for(int u = y+3; u<300; u++){
+                                        if(link.toString().substring(u,u+1).equals("\"")){
+                                            portada.add(link.toString().substring(y+3,u));
+                                            y=201;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         i++;
-                        if(i==21){
+                        if(i==20){
                             break;
                         }
                     }
@@ -54,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     for (Element link : links) {
                         estrellas.add(link.toString().substring(8,11));
                         i++;
-                        if(i==21){
+                        if(i==20){
                             break;
                         }
                     }
@@ -71,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                             meta.add(link.toString().substring(37,39));
                         }
                         i++;
-                        if(i==21){
+                        if(i==20){
                             break;
                         }
                     }
@@ -81,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //TextView grid2 = (TextView) findViewById(R.id.textView2);
-                        //grid2.setText(String.valueOf(titulo.size())+" "+String.valueOf(meta.size())+" "+String.valueOf(estrellas.size())+" "+String.valueOf(portada.size()));
                         adapter = new GridAdapter(MainActivity.this,titulo,estrellas,meta,portada);
                         grid.setAdapter(adapter);
                     }
@@ -90,4 +98,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
 }

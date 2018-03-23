@@ -30,4 +30,5 @@ dependencies {
 
     // jsoup HTML parser library @ https://jsoup.org/
     compile 'org.jsoup:jsoup:1.10.3'
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }
