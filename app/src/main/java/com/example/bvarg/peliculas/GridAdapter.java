@@ -74,8 +74,8 @@ public class GridAdapter extends BaseAdapter {
         meta.setText(this.meta.get(position));
         TextView numero = (TextView)convertView.findViewById(R.id.Numero);
         numero.setText(String.valueOf(position+1));
-        RatingBar estrellas = (RatingBar) convertView.findViewById(R.id.estrellas);
-        estrellas.setRating(Float.parseFloat(this.estrella.get(position)));
+        TextView estrellas = (TextView) convertView.findViewById(R.id.textView_star);
+        estrellas.setText(this.estrella.get(position));
         ImageView portada = (ImageView) convertView.findViewById(R.id.imageView);
         Picasso.with(context.getApplicationContext()).load(this.portada.get(position)).into(portada);
 
